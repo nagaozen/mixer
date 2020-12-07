@@ -7,19 +7,7 @@ import menuOptions from '@/components/SidebarData';
 import { IProject } from '@/types';
 import api from '@/services/api';
 
-// const marks = {
-//   0: '0°C',
-//   26: '26°C',
-//   37: '37°C',
-//   100: {
-//     style: {
-//       color: '#f50',
-//     },
-//     label: <strong>100°C</strong>,
-//   },
-// };
-
-const Project = () => {
+const Project = (props) => {
   let minDate;
   let maxDate;
   const router = useRouter();
@@ -28,31 +16,25 @@ const Project = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const p = menuOptions.find(
-      project => project.path === `/projects/a-garota-da-moto-2-temporada`,
+    const project = menuOptions.find(
+      project => project.path === router.asPath
     );
+
     (async function getProject() {
-      const response = await api.get(`projects/${p?.id}`);
-      debugger;
-      await setProject(response.data);
-      minDate = Date.parse(project.contracts.constraints.dttm[0]);
-      maxDate = Date.parse(project.contracts.constraints.dttm[1]);
-      debugger;
+      const response = await api.get(`projects/${project?.id}`);
+      const _p = response.data
+      setProject(_p);
       setLoading(false);
+      debugger
+      minDate = Date.parse(_p.contracts.constraints.dttm[0]);
+      maxDate = Date.parse(_p.contracts.constraints.dttm[1]);
     })();
-  }, []);
+  }, [router.asPath])
 
   return loading ? (
     <div>Carregando...</div>
   ) : (
     <>
-      <Slider
-        range
-        min={minDate}
-        max={maxDate}
-        step={86400000}
-        defaultValue={[0, 1000]}
-      ></Slider>
       <h1>{project.summary.title}</h1>
       <div>
         <div>{project.id}</div>
