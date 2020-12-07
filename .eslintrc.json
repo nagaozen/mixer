@@ -1,0 +1,28 @@
+{
+  "extends": [
+    "standard-with-typescript",
+    "prettier/@typescript-eslint",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": ["prettier"],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "prettier/prettier": "error",
+    "@typescript-eslint/semi": [
+      "error",
+      "always"
+    ],
+    "space-before-blocks": "error",
+    "new-cap": "off",
+    "@typescript-eslint/consistent-type-assertions": "off",
+    "@typescript-eslint/method-signature-style": "off",
+    "@typescript-eslint/no-floating-promises": "off",
+    "@typescript-eslint/strict-boolean-expressions": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-non-null-asserted-optional-chain": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/restrict-template-expressions": "off"
+  }
+}
